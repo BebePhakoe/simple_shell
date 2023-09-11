@@ -26,26 +26,25 @@
 	}
 
 /**
- * struct InfoNode - contains simulated arguments for a function pointer,
- *					 allowing for a consistent function prototype
- * @arg: a string generated from getline that holds arguments
- * @argv: an array of strings generated from @arg
- * @path: the path string for the current command
- * @argc: the number of arguments
- * @lines: the number of errors encountered
- * @error_code: the exit() error code
- * @lc_flag: a flag indicating whether this line of input should be counted
- * @prog_name: the name of the program's file
- * @env: a linked list representing a local copy of the environment variables
- * @environ: a custom-modified copy of the environ from the linked list env
- * @history: the node for the command history
- * @alias: the node for the command alias
- * @env_changed: a flag that indicates whether environ has been changed
- * @status: the return status of the most recent executed command
- * @sep_buff: the address of the pointer to sep_buff, used for chaining
- * @sep_buff_kind: the type of command buffer (CMD_type ||, &&, ;)
- * @fd_read: the file descriptor used for reading line input
- * @hist_lines: the number of lines in the history
+ * struct InfoNode - A function pointer that contains simulated arguments
+ * @arg: Generated from getline that holds arguments that returns a string
+ * @argv: AN array of strings generated from @arg
+ * @path: The path string
+ * @argc: The number of arguments
+ * @lines: The number of errors
+ * @error_code: The exit() error code
+ * @lc_flag: A flag indicating line of input and should it be counted
+ * @prog_name: The name of the program's file
+ * @env: A linked list that represents a local copy of the environment
+ * @environ: A copy of the environ from the linked list env
+ * @history: The node for the command history
+ * @alias: The node for the command alias
+ * @env_changed: A flag that indicates if the environ has been changed
+ * @status: The return status of the most recent executed command
+ * @sep_buff: The address of the pointer to sep_buff
+ * @sep_buff_kind: The type of command buffer (CMD_type ||, &&, ;)
+ * @bt_read: The file descriptor for reading
+ * @hist_lines: The number of lines in the history
  */
 
 typedef struct InfoNode
@@ -67,7 +66,7 @@ typedef struct InfoNode
 
 	char **sep_buff;
 	int sep_buff_kind;
-	int fd_read;
+	int bt_read;
 	int hist_lines;
 } info_t;
 
