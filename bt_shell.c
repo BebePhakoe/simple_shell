@@ -109,4 +109,3 @@ int shell_main(info_t *info, char **av)
 	/* Return the last executed builtin command's status */
 	return (builtin_return_value);
 }
-
