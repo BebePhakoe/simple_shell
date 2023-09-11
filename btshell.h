@@ -71,5 +71,13 @@ typedef struct InfoNode
 } info_t;
 
 int shell_main(info_s *info, char **av);
+int from_terminal(info_t *info);
+void clear_info(info_t *info);
+void ini_info(info_t *info, char **av);
+void free_info(info_t *info, int all);
+ssize_t input_buf(info_s *info, char **buf, size_t *len);
+void handle_sigint(__attribute__((unused)) int sig_num);
+int _getline(info_q *info, char **ptr, size_t *length);
+ssize_t read_buf(info_s *info, char *buf, size_t *i);
 
 #endif

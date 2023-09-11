@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 			{
 				puts_err(argv[0]);
 				puts_err(": 0: Can't open ");
-				puts_err(argv[1]);
+				puts_err(argv[1]); /* function 13 */
 				putchar_err('\n');
 				putchar_err(NEG_ONE);
 				exit(127);
@@ -41,8 +41,8 @@ int main(int argc, char **argv)
 		info->bt_read = bt;
 	}
 
-	gather_env(info);
-	read_history(info);
+	gather_env(info); /* function 13 */
+	read_history(info); /* function 12 */
 	shell_main(info, argv);
 
 	return (EXIT_SUCCESS);
@@ -67,16 +67,16 @@ int shell_main(info_t *info, char **av)
 		if (from_terminal(info))
 			_puts("$ ");
 
-		putchar_err(NEG_ONE);
-		read_result = get_input(info);
+		putchar_err(NEG_ONE); /* function 9 */
+		read_result = get_input(info); /* function 8 */
 
 		if (read_result != -1)
 		{
 			ini_info(info, av);
-			builtin_return_value = handle_builtin(info);
+			builtin_return_value = handle_builtin(info); /* function 6 */
 
 			if (builtin_return_value == -1)
-				check_command(info);
+				check_command(info); /* function 5 */
 		}
 
 		else if (from_terminal(info))
@@ -84,7 +84,7 @@ int shell_main(info_t *info, char **av)
 
 		free_info(info, 0);
 	}
-	create_history(info);
+	create_history(info); /* function 2 */
 
 	free_info(info, 1);
 	if (!from_terminal(info) && info->status)
