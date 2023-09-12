@@ -1,24 +1,17 @@
 #include "btshell.h"
-
 /**
-<<<<<<< HEAD
  * from_terminal - Returns true if shell is in interactive mode
- * @info: The struct address
-=======
- * from_terminal - returns true if shell is interactive mode
- * @array: struct address
->>>>>>> d37278aab696289dd5b41bfe06e42d7829238c74
+ * @array: The struct address
  *
  * Return: 1 if from_terminal mode else 0
  */
 
-<<<<<<< HEAD
-int from_terminal(info_q *info)
-=======
 int from_terminal(info_t *array)
->>>>>>> d37278aab696289dd5b41bfe06e42d7829238c74
+> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 {
+> > > > > > HEAD
 	return (isatty(STDIN_FILENO) && array->bt_read <= 2);
+> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 }
 
 /**

@@ -1,19 +1,19 @@
 #include "btshell.h"
 /**
- * main - main function
- * @argc: number of parameters
- * @argv: value of parameters
+ * main - Main function
+ * @argc: Number of parameters
+ * @argv: Value of parameters
  *
  * Return: 0(Success), 1(Failure)
  */
 
 int main(int argc, char **argv)
 {
-<<<<<<< HEAD
+< < < < < < < HEAD
 	info_q info[] = {INI_INFO};
-=======
+= = = = = = =
 	info_t array[] = {INI_INFO};
->>>>>>> d37278aab696289dd5b41bfe06e42d7829238c74
+> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 	int bt = 2;
 
 	asm("mov %1, %0\n\t"
@@ -41,7 +41,6 @@ int main(int argc, char **argv)
 
 			return (EXIT_FAILURE);
 		}
-
 		array->bt_read = bt;
 	}
 
@@ -54,22 +53,18 @@ int main(int argc, char **argv)
 
 /**
  * shell_main - Entry point
-<<<<<<< HEAD
  * @info: Pointer to an info_q for shell information
-=======
  * @array: Pointer to an info_q for shell information
->>>>>>> d37278aab696289dd5b41bfe06e42d7829238c74
  * @av: Array of strings containing arguments to the shell
  *
  * Return: Executed builtin command
  */
-<<<<<<< HEAD
-int shell_main(info_q *info, char **av)
-=======
-int shell_main(info_t *array, char **av)
->>>>>>> d37278aab696289dd5b41bfe06e42d7829238c74
+
+int shell_main(info_q *array, char **av)
 {
+< < < < < < < HEAD
 	ssize_t read_result = 0;
+> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 	int builtin_return_value = 0;
 
 	while (read_result != -1 && builtin_return_value != -2)
@@ -90,14 +85,12 @@ int shell_main(info_t *array, char **av)
 			if (builtin_return_value == -1)
 				check_command(array); /* function 5 */
 		}
-
 		else if (from_terminal(array))
 			_putchar('\n');
 
 		free_info(array, 0);
 	}
 	create_history(array); /* function 2 */
-
 	free_info(array, 1);
 	if (!from_terminal(array) && array->status)
 		exit(array->status);

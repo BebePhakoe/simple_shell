@@ -2,13 +2,13 @@
 
 /**
  * input_buf - The buffers commands
- * @info:The parameter struct
+ * @array:The parameter struct
  * @buf: The address of buffer
  * @len: The address of len var
  *
  * Return: Bytes
  */
-ssize_t input_buf(info_q *info, char **buf, size_t *len)
+ssize_t input_buf(info_q *array, char **buf, size_t *len)
 {
 	ssize_t r = 0;
 	size_t len_p = 0;
@@ -21,7 +21,7 @@ ssize_t input_buf(info_q *info, char **buf, size_t *len)
 #if USE_GETLINE
 		r = getline(buf, &len_p, stdin);
 #else
-		r = _getline(info, buf, &len_p);
+		r = _getline(array, buf, &len_p);
 #endif
 		if (r > 0)
 		{
@@ -30,9 +30,9 @@ ssize_t input_buf(info_q *info, char **buf, size_t *len)
 				(*buf)[r - 1] = '\0';
 				r--;
 			}
-			info->lc_flag = 1;
+			array->lc_flag = 1;
 			handle_comments(*buf);
-			update_history(info, *buf, info->hist_lines++);
+			update_history(array, *buf, array->hist_lines++);
 			{
 				*len = r;
 				info->sep_buff = buf;
@@ -44,19 +44,19 @@ ssize_t input_buf(info_q *info, char **buf, size_t *len)
 
 /**
  * get_input - The line that gets minus the newline
- * @info: The parameter struct
+ * @array: The parameter struct
  *
  * Return: Bytes
  */
-ssize_t get_input(info_q *info)
+ssize_t get_input(info_q *array)
 {
 	static char *buf;
 	static size_t i, j, len;
 	ssize_t r = 0;
-	char **buf_p = &(info->arg), *p;
+	char **buf_p = &(array->arg), *p;
 
 	_putchar(NEG_ONE);
-	r = input_buf(info, &buf, &len);
+	r = input_buf(array, &buf, &len);
 	if (r == -1)
 		return (-1);
 	if (len)
@@ -64,10 +64,10 @@ ssize_t get_input(info_q *info)
 		j = i;
 		p = buf + i;
 
-		check_chain(info, buf, &j, i, len);
+		check_chain(array, buf, &j, i, len);
 		while (j < len)
 		{
-			if (is_chain(info, buf, &j))
+			if (is_chain(array, buf, &j))
 				break;
 			j++;
 		}
@@ -86,19 +86,19 @@ ssize_t get_input(info_q *info)
 
 /**
  * read_buf - Reads a buffer
- * @info: The parameter struct
+ * @array: The parameter struct
  * @buf: The buffer
  * @i: size
  *
  * Return: r
  */
-ssize_t read_buf(info_q *info, char *buf, size_t *i)
+ssize_t read_buf(info_q *array, char *buf, size_t *i)
 {
 	ssize_t r = 0;
 
 	if (*i)
 		return (0);
-	r = read(info->bt_read, buf, BUFFER_SIZE_READ);
+	r = read(array->bt_read, buf, BUFFER_SIZE_READ);
 	if (r >= 0)
 		*i = r;
 	return (r);
@@ -106,14 +106,14 @@ ssize_t read_buf(info_q *info, char *buf, size_t *i)
 
 /**
  * _getline - Function to get the next line of input from STDIN
- * @info: The parameter struct
+ * @array: The parameter struct
  * @ptr: The address of the pointer to buffer,
  * NULL or pre-allocated
  * @length: The size of pre-allocated ptr buffer if not NULL
  *
  * Return: s
  */
-int _getline(info_q *info, char **ptr, size_t *length)
+int _getline(info_q *array, char **ptr, size_t *length)
 {
 	static char buf[BUFFER_SIZE_READ];
 	static size_t i, len;
@@ -127,7 +127,7 @@ int _getline(info_q *info, char **ptr, size_t *length)
 	if (i == len)
 		i = len = 0;
 
-	r = read_buf(info, buf, &len); /* function 6 */
+	r = read_buf(array, buf, &len); /* function 6 */
 	if (r == -1 || (r == 0 && len == 0))
 		return (-1);
 	c = _strchr(buf + i, '\n'); /* function 5 */

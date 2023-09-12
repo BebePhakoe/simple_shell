@@ -78,11 +78,11 @@ void free_info(info_q *info, int all);
 ssize_t input_buf(info_q *info, char **buf, size_t *len);
 void handle_sigint(__attribute__((unused)) int sig_num);
 int _getline(info_q *info, char **ptr, size_t *length);
-<<<<<<< HEAD
+< < < < < < < HEAD
 ssize_t read_buf(info_q *info, char *buf, size_t *i);
-=======
-ssize_t read_buf(info_s *info, char *buf, size_t *i);
+= = = = = = =
+ssize_t read_buf(info_q *info, char *buf, size_t *i);
 int handle_built(info_q *array);
->>>>>>> d37278aab696289dd5b41bfe06e42d7829238c74
+> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 
 #endif
