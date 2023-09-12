@@ -1,10 +1,10 @@
 #include "btshell.h"
 
 /**
- * clear_info - initializes info_s struct
- * @info: struct address
+ * clear_info - To initializes the info_q struct
+ * @info: The adress for struct
  */
-void clear_info(info_t *info)
+void clear_info(info_q *info)
 {
 	info->arg = NULL;
 	info->argv = NULL;
@@ -13,11 +13,11 @@ void clear_info(info_t *info)
 }
 
 /**
- * set_info - initializes info_s struct
- * @info: struct address
- * @av: argument vector
+ * set_info - To initializes the info_q struct
+ * @info: The adress for struct
+ * @av: The argument vector
  */
-void set_info(info_s *info, char **av)
+void set_info(info_q *info, char **av)
 {
 	int i = 0;
 
@@ -42,11 +42,11 @@ void set_info(info_s *info, char **av)
 	}
 }
 /**
- * free_info - frees info_s struct fields
- * @info: struct address
- * @all: true if freeing all fields
+ * free_info - Frees the info_q struct
+ * @info: The adress for struct
+ * @all: True if the info is free
  */
-void free_info(info_s *info, int all)
+void free_info(info_q *info, int all)
 {
 	free_vector(info->argv);
 	info->argv = NULL;

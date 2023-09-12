@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv)
 {
-	info_t info[] = {INI_INFO};
+	info_q info[] = {INI_INFO};
 	int bt = 2;
 
 	asm("mov %1, %0\n\t"
@@ -50,12 +50,12 @@ int main(int argc, char **argv)
 
 /**
  * shell_main - Entry point
- * @info: Pointer to an info_t for shell information
+ * @info: Pointer to an info_q for shell information
  * @av: Array of strings containing arguments to the shell
  *
  * Return: Executed builtin command
  */
-int shell_main(info_t *info, char **av)
+int shell_main(info_q *info, char **av)
 {
 	ssize_t read_result = 0;
 	int builtin_return_value = 0;
