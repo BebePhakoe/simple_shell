@@ -1,15 +1,15 @@
 #include "btshell.h"
 /**
- * main - entry point
- * @argc: number of agurments
- * @argv: value of arguments
+ * main - main function
+ * @argc: number of parameters
+ * @argv: value of parameters
  *
  * Return: 0(Success), 1(Failure)
  */
 
 int main(int argc, char **argv)
 {
-	info_t info[] = {INI_INFO};
+	info_t array[] = {INI_INFO};
 	int bt = 2;
 
 	asm("mov %1, %0\n\t"
@@ -31,70 +31,70 @@ int main(int argc, char **argv)
 				puts_err(": 0: Can't open ");
 				puts_err(argv[1]); /* function 13 */
 				putchar_err('\n');
-				putchar_err(NEG_ONE);
+				putchar_err(NEGATIVE_ONE);
 				exit(127);
 			}
 
 			return (EXIT_FAILURE);
 		}
 
-		info->bt_read = bt;
+		array->bt_read = bt;
 	}
 
-	gather_env(info); /* function 13 */
-	read_history(info); /* function 12 */
-	shell_main(info, argv);
+	gather_enviroment(array); /* function 13 */
+	hist_read(array); /* function 12 */
+	shell_main(array, argv);
 
 	return (EXIT_SUCCESS);
 }
 
 /**
  * shell_main - Entry point
- * @info: Pointer to an info_t for shell information
+ * @array: Pointer to an info_q for shell information
  * @av: Array of strings containing arguments to the shell
  *
  * Return: Executed builtin command
  */
-int shell_main(info_t *info, char **av)
+int shell_main(info_t *array, char **av)
 {
 	ssize_t read_result = 0;
 	int builtin_return_value = 0;
 
 	while (read_result != -1 && builtin_return_value != -2)
 	{
-		clear_info(info);
+		clear_info(array);
 
-		if (from_terminal(info))
+		if (from_terminal(array))
 			_puts("$ ");
 
-		putchar_err(NEG_ONE); /* function 9 */
-		read_result = get_input(info); /* function 8 */
+		putchar_err(NEGATIVE_ONE); /* function 9 */
+		read_result = get_input(array);
 
 		if (read_result != -1)
 		{
-			ini_info(info, av);
-			builtin_return_value = handle_builtin(info); /* function 6 */
+			ini_info(array, av);
+			builtin_return_value = handle_builtin(array); /* function 6 */
 
 			if (builtin_return_value == -1)
-				check_command(info); /* function 5 */
+				check_command(array); /* function 5 */
 		}
 
-		else if (from_terminal(info))
+		else if (from_terminal(array))
 			_putchar('\n');
 
-		free_info(info, 0);
+		free_info(array, 0);
 	}
-	create_history(info); /* function 2 */
+	create_history(array); /* function 2 */
 
-	free_info(info, 1);
-	if (!from_terminal(info) && info->status)
-		exit(info->status);
+	free_info(array, 1);
+	if (!from_terminal(array) && array->status)
+		exit(array->status);
 
 	if (builtin_return_value == -2)
 	{
-		if (info->error_code == -1)
-			exit(info->status);
-		exit(info->error_code);
+		if (array->error_code == -1)
+			exit(array->status);
+		exit(array->error_code);
 	}
 	return (builtin_return_value);
 }

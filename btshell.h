@@ -79,5 +79,6 @@ ssize_t input_buf(info_s *info, char **buf, size_t *len);
 void handle_sigint(__attribute__((unused)) int sig_num);
 int _getline(info_q *info, char **ptr, size_t *length);
 ssize_t read_buf(info_s *info, char *buf, size_t *i);
+int handle_built(info_q *array);
 
 #endif
