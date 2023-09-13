@@ -84,5 +84,11 @@ ssize_t read_buf(info_q *info, char *buf, size_t *i);
 ssize_t read_buf(info_q *info, char *buf, size_t *i);
 int handle_built(info_q *array);
 > > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
+char *read_hist(info_q *array);
+int create_history(info_q *array);
+int read_history(info_q *array);
+int update_history(info_q *array, char *buf, int linecount);
+int renumber_history(info_q *array);
+
 
 #endif

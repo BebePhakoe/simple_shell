@@ -11,7 +11,7 @@ int handle_exit(info_q *array)
 {
 	int exitcheck;
 
-	if (array->argv[1]) 
+	if (array->argv[1])
 	{
 		exitcheck = err_num(array->argv[1]);
 		if (exitcheck == -1)
@@ -46,7 +46,7 @@ int handle_cd(info_q *array)
 	{
 		dir = _getenv(array, "HOME=");
 		if (!dir)
-			chdir_ret = 
+			chdir_ret =
 				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
 		else
 			chdir_ret = chdir(dir);
@@ -60,7 +60,7 @@ int handle_cd(info_q *array)
 			return (1);
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret = 
+		chdir_ret =
 			chdir((dir = _getenv(array, "OLDPWD=")) ? dir : "/");
 	}
 	else

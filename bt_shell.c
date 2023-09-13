@@ -10,9 +10,9 @@
 int main(int argc, char **argv)
 {
 < < < < < < < HEAD
-	info_q info[] = {INI_INFO};
+	info_q array[] = {INI_INFO};
 = = = = = = =
-	info_t array[] = {INI_INFO};
+	info_q array[] = {INI_INFO};
 > > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 	int bt = 2;
 
@@ -53,7 +53,6 @@ int main(int argc, char **argv)
 
 /**
  * shell_main - Entry point
- * @info: Pointer to an info_q for shell information
  * @array: Pointer to an info_q for shell information
  * @av: Array of strings containing arguments to the shell
  *
