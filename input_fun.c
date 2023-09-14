@@ -31,7 +31,7 @@ ssize_t input_buf(info_q *array, char **buf, size_t *len)
 				r--;
 			}
 			array->lc_flag = 1;
-			handle_comments(*buf);
+			handle_comments(*buf); /*function 1*/
 			update_history(array, *buf, array->hist_lines++);
 			{
 				*len = r;
@@ -55,7 +55,7 @@ ssize_t get_input(info_q *array)
 	ssize_t r = 0;
 	char **buf_p = &(array->arg), *p;
 
-	_putchar(NEG_ONE);
+	_putchar(NEGATIVE_ONE);
 	r = input_buf(array, &buf, &len);
 	if (r == -1)
 		return (-1);
@@ -67,7 +67,7 @@ ssize_t get_input(info_q *array)
 		check_chain(array, buf, &j, i, len);
 		while (j < len)
 		{
-			if (is_chain(array, buf, &j))
+			if (is_chain(array, buf, &j)) /*function 2*/
 				break;
 			j++;
 		}
@@ -78,7 +78,7 @@ ssize_t get_input(info_q *array)
 			info->sep_buff_kind = REG_FLAG;
 		}
 		*buf_p = p;
-		return (_strlen(p));
+		return (_strlen(p)); /*function 3*/
 	}
 	*buf_p = buf;
 	return (r);

@@ -13,11 +13,11 @@ int handle_exit(info_q *array)
 
 	if (array->argv[1])
 	{
-		exitcheck = err_num(array->argv[1]);
+		exitcheck = err_num(array->argv[1]); /*function 1*/
 		if (exitcheck == -1)
 		{
 			array->status = 2;
-			print_error(array, "Illegal number: ");
+			print_error(array, "Illegal number: "); /* function 2*/
 			puts_err(array->argv[1]);
 			putchar_err('\n');
 			return (1);
@@ -41,15 +41,15 @@ int handle_cd(info_q *array)
 
 	s = getcwd(buffer, 1024);
 	if (!s)
-		_puts("TODO: >>getcwd failure emsg here<<\n");
+		_puts("TODO: >>getcwd failure emsg here<<\n"); /*function 3*/
 	if (!array->argv[1])
 	{
-		dir = _getenv(array, "HOME=");
+		dir = _getenv(array, "HOME="); /* function 4 */
 		if (!dir)
 			chdir_ret =
 				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
 		else
-			chdir_ret = chdir(dir);
+			chdir_ret = chdir(dir); /* function 5 */
 	}
 	else if (_strcmp(array->argv[1], "-") == 0)
 	{
@@ -73,7 +73,7 @@ int handle_cd(info_q *array)
 	else
 	{
 		_setenv(array, "OLDPWD", _getenv(array, "PWD="));
-		_setenv(array, "PWD", getcwd(buffer, 1024));
+		_setenv(array, "PWD", getcwd(buffer, 1024)); /* function 6 */
 	}
 	return (0);
 }
@@ -104,7 +104,7 @@ int handle_help(info_q *array)
  */
 int handle_history(info_q array)
 {
-	print_list(array->history);
+	print_list(array->history); /* function 7 */
 
 	return (0);
 }

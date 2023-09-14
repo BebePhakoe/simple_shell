@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 	}
 
 	gather_enviroment(array); /* function 13 */
-	hist_read(array); /* function 12 */
+	main_history(array);
 	shell_main(array, argv);
 
 	return (EXIT_SUCCESS);
@@ -79,17 +79,17 @@ int shell_main(info_q *array, char **av)
 		if (read_result != -1)
 		{
 			ini_info(array, av);
-			builtin_return_value = handle_builtin(array); /* function 6 */
+			builtin_return_value = handle_builtin(array);
 
 			if (builtin_return_value == -1)
-				check_command(array); /* function 5 */
+				check_command(array);
 		}
 		else if (from_terminal(array))
 			_putchar('\n');
 
 		free_info(array, 0);
 	}
-	create_history(array); /* function 2 */
+	create_history(array);
 	free_info(array, 1);
 	if (!from_terminal(array) && array->status)
 		exit(array->status);

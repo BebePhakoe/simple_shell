@@ -24,21 +24,21 @@ void set_info(info_q *info, char **av)
 	info->prog_name = av[0];
 	if (info->arg)
 	{
-		info->argv = strtow(info->arg, " \t");
+		info->argv = strtow(info->arg, " \t"); /* function 7 */
 		if (!info->argv)
 		{
 			info->argv = malloc(sizeof(char *) * 2);
 			if (info->argv)
 			{
-				info->argv[0] = _strdup(info->arg);
+				info->argv[0] = _strdup(info->arg); /* function 1*/
 				info->argv[1] = NULL;
 			}
 		}
 		for (i = 0; info->argv && info->argv[i]; i++)
 			;
 		info->argc = i;
-		change_alias(info);
-		change_v(info);
+		change_alias(info); /* function 6 */
+		change_v(info); /* function 8 */
 	}
 }
 /**
@@ -48,7 +48,7 @@ void set_info(info_q *info, char **av)
  */
 void free_info(info_q *info, int all)
 {
-	free_vector(info->argv);
+	free_vector(info->argv); /* function 2*/
 	info->argv = NULL;
 	info->path = NULL;
 	if (all)
@@ -56,16 +56,16 @@ void free_info(info_q *info, int all)
 		if (!info->sep_buff)
 			free(info->arg);
 		if (info->env)
-			free_list(&(info->env));
+			free_list(&(info->env)); /* function 3 */
 		if (info->history)
 			free_list(&(info->history));
 		if (info->alias)
 			free_list(&(info->alias));
 		free_vector(info->environ);
 		info->environ = NULL;
-		bfree((void **)info->sep_buff);
+		bfree((void **)info->sep_buff); /* function 4*/
 		if (info->bt_read > 2)
 			close(info->bt_read);
-		_putchar(NEG_ONE);
+		_putchar(NEGATIVE_ONE);
 	}
 }
