@@ -53,23 +53,23 @@ int create_history(info_q *array)
 }
 
 /**
- * read_history - Reads history of file
+ * hist_read - Reads history of file
  * @array: Parameter struct
  *
  * Return: Hist_lines on success, 0 otherwise
  */
-int read_history(info_q *array)
+int hist_read(info_q *array)
 {
 	int i, last = 0, linecount = 0;
 	ssize_t bt, rdlen, fsize = 0;
 	struct stat st;
-	char *buf = NULL, *filename = read_hist(array);
+	char *buf = NULL, *file_name = read_hist(array);
 
-	if (!filename)
+	if (!file_name)
 		return (0);
 
-	bt = open(filename, O_RDONLY);
-	free(filename);
+	bt = open(file_name, O_RDONLY);
+	free(file_name);
 	if (bt == -1)
 		return (0);
 	if (!fstat(bt, &st))
@@ -132,12 +132,12 @@ int update_history(info_q *array, char *buf, int linecount)
 int renumber_history(info_q *array)
 {
 	list_s *node = array->history;
-	int i = 0;
+	int j = 0;
 
 	while (node)
 	{
-		node->num = i++;
+		node->num = j++;
 		node = node->next;
 	}
-	return (array->hist_lines = i);
+	return (array->hist_lines = j);
 }
