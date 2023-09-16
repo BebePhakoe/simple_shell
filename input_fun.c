@@ -127,7 +127,7 @@ int _getline(info_q *array, char **ptr, size_t *length)
 	if (i == len)
 		i = len = 0;
 
-	r = read_buf(array, buf, &len); /* function 6 */
+	r = read_buf(array, buf, &len);
 	if (r == -1 || (r == 0 && len == 0))
 		return (-1);
 	c = _strchr(buf + i, '\n'); /* function 5 */
@@ -159,6 +159,6 @@ int _getline(info_q *array, char **ptr, size_t *length)
 void handle_sigint(__attribute__((unused)) int sig_num)
 {
 	_puts("\n");
-	_puts("$ "); /* function 1 */
+	_puts("$ "); /* function 1*/
 	_putchar(NEG_ONE);
 }

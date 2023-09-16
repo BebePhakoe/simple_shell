@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 			{
 				puts_err(argv[0]);
 				puts_err(": 0: Can't open ");
-				puts_err(argv[1]); /* function 13 */
+				puts_err(argv[1]);
 				putchar_err('\n');
 				putchar_err(NEGATIVE_ONE);
 				exit(127);
@@ -73,7 +73,7 @@ int shell_main(info_q *array, char **av)
 		if (from_terminal(array))
 			_puts("$ ");
 
-		putchar_err(NEGATIVE_ONE); /* function 9 */
+		putchar_err(NEGATIVE_ONE);
 		read_result = get_input(array);
 
 		if (read_result != -1)
