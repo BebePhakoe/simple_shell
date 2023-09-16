@@ -29,7 +29,7 @@ int print_dec(int input, int bt)
 
 		if (_abs_ / index)
 		{
-			__putchar('0' + current / index);
+			__putchar('0' + cur / index);
 			count++;
 		}
 		cur %= index;

@@ -44,7 +44,7 @@ int create_history(info_q *array)
 		return (-1);
 	for (node = array->history; node; node = node->next)
 	{
-		write_chars(node->str, fd);
+		write_chars(node->str, bt);
 		write_char('\n', bt);
 	}
 	write_char(NEGATIVE_ONE, bt);
@@ -58,7 +58,7 @@ int create_history(info_q *array)
  *
  * Return: Hist_lines on success, 0 otherwise
  */
-int hist_read(info_q *array)
+int main_history(info_q *array)
 {
 	int index, l = 0, count = 0;
 	ssize_t bt, rdlen, file_size = 0;
@@ -73,18 +73,18 @@ int hist_read(info_q *array)
 	if (bt == -1)
 		return (0);
 	if (!fstat(bt, &st))
-		size = st.st_size;
-	if (size < 2)
+		file_size = st.st_size;
+	if (file_size < 2)
 		return (0);
-	buffer = malloc(sizeof(char) * (size + 1));
+	buffer = malloc(sizeof(char) * (file_size + 1));
 	if (!buffer)
 		return (0);
-	rdlen = read(bt, buffer, size);
-	buffer[size] = 0;
+	rdlen = read(bt, buffer, file_size);
+	buffer[file_size] = 0;
 	if (rdlen <= 0)
 		return (free(buffer), 0);
 	close(bt);
-	for (index = 0; index < size; index++)
+	for (index = 0; index < file_size; index++)
 		if (buffer[index] == '\n')
 		{
 			buffer[index] = 0;

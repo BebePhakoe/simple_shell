@@ -80,7 +80,7 @@ int _putchar(char c)
 	if (c == NEGATIVE_ONE || index >= BUFFER_SIZE_WRITE)
 	{
 		write(1, buffer, index);
-		i = 0;
+		index = 0;
 	}
 	if (c != NEGATIVE_ONE)
 		buffer[index++] = c;

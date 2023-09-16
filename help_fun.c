@@ -79,7 +79,7 @@ void create_process(info_q *array)
 		wait(&(array->status));
 		if (WIFEXITED(array->status))
 		{
-			array->status = WEXITSTATUS(info->status);
+			array->status = WEXITSTATUS(array->status);
 
 			if (array->status == 126)
 				print_error(array, "Permission denied\n");

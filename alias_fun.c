@@ -17,8 +17,8 @@ int unset_alias(info_q *array, char *str)
 		return (1);
 	ch = *point;
 	*point = 0;
-	return_value = delete_node_at_index(&(array->alias);
-	get_node_index(array->alias, node_str_start(array->alias, str, -1)));
+	return_value = delete_node_at_index(&(array->alias),
+			get_node_index(array->alias, node_str_start(array->alias, str, -1)));
 	*point = ch;
 	return (return_value);
 }

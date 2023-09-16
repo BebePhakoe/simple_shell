@@ -68,7 +68,7 @@ int check_unsetenv(info_q *array)
  * @array: Function pointer, allowing for a consistent function prototype
  * Return: Always 0
  */
-int gather_env(info_q *array)
+int gather_enviroment(info_q *array)
 {
 	list_s *node = NULL;
 	size_t i;

@@ -21,54 +21,32 @@ int write_chars(char *str, int bt)
 }
 
 /**
- * change_base - a clone of itoa function
- * @num: number
- * @base: base
- * @flags: argument flags
- *
- * Return: string
+ * ini_info - initializes info_q struct
+ * @array: struct address
+ * @av: argument vector
  */
-char *change_base(long int num, int base, int flags)
+void ini_info(info_q *array, char **av)
 {
-	char number_sign = 0;
-	char *point;
-	unsigned long number = num;
+	int i = 0;
 
-	static char *array;
-	static char buffer[50];
-
-	if (!(flags & BAS_CHANGE_UNSIG) && num < 0)
+	array->prog_name = av[0];
+	if (array->arg)
 	{
-		number = -num;
-		number_sign = '-';
-	}
-	array = flags & BAS_CHANGE_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
-	point = &buffer[49];
-	*point = '\0';
-	do {
-		*--point = array[number % base];
-		number /= base;
-	} while (number != 0);
-	if (number_sign)
-		*--point = number_sign;
-	return (point);
-}
-
-/**
- * handle_comments - function replaces first instance of '#' with '\0'
- * @buf: address of the string to modify
- *
- * Return: 0;
- */
-
-void handle_comments(char *buf)
-{
-	int k;
-
-	for (k = 0; buf[k] != '\0'; k++)
-		if (buf[k] == '#' && (!k || buf[k - 1] == ' '))
+		array->argv = strtow(array->arg, " \t");
+		if (!array->argv)
 		{
-			buf[k] = '\0';
-			break;
+			array->argv = malloc(sizeof(char *) * 2);
+			if (array->argv)
+			{
+				array->argv[0] = _strdup(array->arg);
+				array->argv[1] = NULL;
+			}
 		}
+		for (i = 0; array->argv && array->argv[i]; i++)
+		{
+			array->argc = i;
+			change_alias(array);
+			change_v(array);
+		}
+	}
 }

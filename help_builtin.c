@@ -47,7 +47,7 @@ int handle_cd(info_q *array)
 		dir = _getenv(array, "HOME="); /* function 4 */
 		if (!dir)
 			chdir_ret =
-				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+				chdir((dir = _getenv(array, "PWD=")) ? dir : "/");
 		else
 			chdir_ret = chdir(dir); /* function 5 */
 	}
@@ -102,7 +102,7 @@ int handle_help(info_q *array)
  * @array: Arguments for a function pointer, that allow for function prototype
  *	Return: Always 0
  */
-int handle_history(info_q array)
+int handle_history(info_q *array)
 {
 	print_list(array->history); /* function 7 */
 

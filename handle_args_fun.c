@@ -36,7 +36,7 @@ char *dup_chars(char *pathstr, int start, int stop)
 	static char buffer[1024];
 	int index = 0, k = 0;
 
-	for (k = 0, index = start; index < stop; i++)
+	for (k = 0, index = start; index < stop; index++)
 		if (pathstr[index] != ':')
 			buffer[k++] = pathstr[index];
 	buffer[k] = 0;

@@ -73,7 +73,7 @@ int shell_main(info_q *array, char **av)
 		if (read_result != -1)
 		{
 			ini_info(array, av);
-			builtin_return_value = handle_builtin(array);
+			builtin_return_value = handle_built(array);
 
 			if (builtin_return_value == -1)
 				check_command(array);
