@@ -12,44 +12,44 @@
 
 char **split_string(char *str, char *separators, size_t *word_count)
 {
-	int v, no_of_words;
+	int k, number_words;
 	char **words;
 	char *str_ptr = str;
-	unsigned int c, word_sizes[MAX_WORD_COUNT];
+	unsigned int i, word_sizes[MAX_WORD_COUNT];
 
 	set_zeros(word_sizes, MAX_WORD_COUNT);
-	no_of_words = words_count(str, separators, word_sizes);
+	number_words = words_count(str, separators, word_sizes);
 
-	if (no_of_words == 0)
+	if (number_words == 0)
 		return (NULL);
 
-	words = malloc((sizeof(char *) * no_of_words) + 1);
+	words = malloc((sizeof(char *) * number_words) + 1);
 	if (!words)
 		return (NULL);
 
-	for (v = 0; v < no_of_words; v++)
+	for (k = 0; k < number_words; k++)
 	{
-		words[v] = malloc((sizeof(char) * word_sizes[v]) + 1);
-		if (!words[v])
+		words[k] = malloc((sizeof(char) * word_sizes[k]) + 1);
+		if (!words[k])
 		{
-			for (v--; v >= 0; v--)
-				free(words[v]);
+			for (k--; k >= 0; k--)
+				free(words[k]);
 			free(words);
 			return (NULL);
 		}
 
-		for (c = 0; c < word_sizes[v]; c++, str_ptr++)
+		for (i = 0; i < word_sizes[k]; i++, str_ptr++)
 		{
 			while (is_delimiter(*str_ptr, separators))
 				str_ptr++;
 
-			words[v][c] = *str_ptr;
+			words[k][i] = *str_ptr;
 		};
-		words[v][c] = '\0';
+		words[k][i] = '\0';
 	}
-	*word_count = no_of_words;
+	*word_count = number_words;
 
-	words[v] = NULL;
+	words[k] = NULL;
 
 	return (words);
 }

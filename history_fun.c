@@ -8,19 +8,19 @@
 
 char *read_hist(info_q *array)
 {
-	char *buf, *dir;
+	char *buffer, *point;
 
-	dir = _getenv(array, "HOME=");
-	if (!dir)
+	point = _getenv(array, "HOME=");
+	if (!point)
 		return (NULL);
-	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE_NAME) + 2));
-	if (!buf)
+	buffer = malloc(sizeof(char) * (_strlen(point) + _strlen(HIST_FILE_NAME) + 2));
+	if (!buffer)
 		return (NULL);
-	buf[0] = 0;
-	_strcpy(buf, dir);
-	_strcat(buf, "/");
-	_strcat(buf, HIST_FILE_NAME);
-	return (buf);
+	buffer[0] = 0;
+	_strcpy(buffer, point);
+	_strcat(buffer, "/");
+	_strcat(buffer, HIST_FILE_NAME);
+	return (buffer);
 }
 
 /**
@@ -47,7 +47,7 @@ int create_history(info_q *array)
 		write_chars(node->str, fd);
 		write_char('\n', bt);
 	}
-	write_char(NEG_ONE, bt);
+	write_char(NEGATIVE_ONE, bt);
 	close(bt);
 	return (1);
 }
@@ -60,10 +60,10 @@ int create_history(info_q *array)
  */
 int hist_read(info_q *array)
 {
-	int i, last = 0, linecount = 0;
-	ssize_t bt, rdlen, fsize = 0;
+	int index, l = 0, count = 0;
+	ssize_t bt, rdlen, file_size = 0;
 	struct stat st;
-	char *buf = NULL, *file_name = read_hist(array);
+	char *buffer = NULL, *file_name = read_hist(array);
 
 	if (!file_name)
 		return (0);
@@ -73,28 +73,28 @@ int hist_read(info_q *array)
 	if (bt == -1)
 		return (0);
 	if (!fstat(bt, &st))
-		fsize = st.st_size;
-	if (fsize < 2)
+		size = st.st_size;
+	if (size < 2)
 		return (0);
-	buf = malloc(sizeof(char) * (fsize + 1));
-	if (!buf)
+	buffer = malloc(sizeof(char) * (size + 1));
+	if (!buffer)
 		return (0);
-	rdlen = read(bt, buf, fsize);
-	buf[fsize] = 0;
+	rdlen = read(bt, buffer, size);
+	buffer[size] = 0;
 	if (rdlen <= 0)
-		return (free(buf), 0);
+		return (free(buffer), 0);
 	close(bt);
-	for (i = 0; i < fsize; i++)
-		if (buf[i] == '\n')
+	for (index = 0; index < size; index++)
+		if (buffer[index] == '\n')
 		{
-			buf[i] = 0;
-			update_history(array, buf + last, linecount++);
-			last = i + 1;
+			buffer[index] = 0;
+			update_history(array, buffer + l, count++);
+			l = index + 1;
 		}
-	if (last != i)
-		update_history(array, buf + last, linecount++);
-	free(buf);
-	array->hist_lines = linecount;
+	if (l != index)
+		update_history(array, buffer + l, count++);
+	free(buffer);
+	array->hist_lines = count;
 	while (array->hist_lines-- >= HIST_SIZE_MAX)
 		delete_node_at_index(&(array->history), 0);
 	renumber_history(array);
@@ -132,12 +132,12 @@ int update_history(info_q *array, char *buf, int linecount)
 int renumber_history(info_q *array)
 {
 	list_s *node = array->history;
-	int j = 0;
+	int k = 0;
 
 	while (node)
 	{
-		node->num = j++;
+		node->num = k++;
 		node = node->next;
 	}
-	return (array->hist_lines = j);
+	return (array->hist_lines = k);
 }

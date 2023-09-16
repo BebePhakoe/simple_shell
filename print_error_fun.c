@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "btshell.h"
 /**
  * err_num - Converts string to integer
  * @s: String to convert
@@ -75,12 +75,12 @@ int putchar_err(char c)
 	static int i;
 	static char buf[BUFFER_SIZE_WRITE];
 
-	if (c == NEG_ONE || i >= BUFFER_SIZE_WRITE)
+	if (c == NEGATIVE_ONE || i >= BUFFER_SIZE_WRITE)
 	{
 		write(2, buf, i);
 		i = 0;
 	}
-	if (c != NEG_ONE)
+	if (c != NEGATIVE_ONE)
 		buf[i++] = c;
 	return (1);
 }
@@ -97,12 +97,12 @@ int write_char(char c, int bt)
 	static int i;
 	static char buf[BUFFER_SIZE_WRITE];
 
-	if (c == NEG_ONE || i >= BUFFER_SIZE_WRITE)
+	if (c == NEGATIVE_ONE || i >= BUFFER_SIZE_WRITE)
 	{
 		write(bt, buf, i);
 		i = 0;
 	}
-	if (c != NEG_ONE)
+	if (c != NEGATIVE_ONE)
 		buf[i++] = c;
 	return (1);
 }

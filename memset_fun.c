@@ -62,8 +62,6 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	return (p);
 }
 
-#include "shell.h"
-
 /**
  * bfree - Frees a pointer and NULLs the address
  * @ptr: Address of pointer

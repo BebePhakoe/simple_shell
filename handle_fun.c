@@ -10,8 +10,8 @@
 int print_dec(int input, int bt)
 {
 	int (*__putchar)(char) = _putchar;
-	int i, count = 0;
-	unsigned int _abs_, current;
+	int index, count = 0;
+	unsigned int _abs_, cur;
 
 	if (bt == STDERR_FILENO)
 		__putchar = putchar_err;
@@ -23,18 +23,18 @@ int print_dec(int input, int bt)
 	}
 	else
 		_abs_ = input;
-	current = _abs_;
-	for (i = 1000000000; i > 1; i /= 10)
+	cur = _abs_;
+	for (index = 1000000000; index > 1; index /= 10)
 	{
 
-		if (_abs_ / i)
+		if (_abs_ / index)
 		{
-			__putchar('0' + current / i);
+			__putchar('0' + current / index);
 			count++;
 		}
-		current %= i;
+		cur %= index;
 	}
-	__putchar('0' + current);
+	__putchar('0' + cur);
 	count++;
 	return (count);
 }
@@ -48,28 +48,28 @@ int print_dec(int input, int bt)
  */
 char *change_base(long int num, int base, int flags)
 {
-	char sign = 0;
-	char *ptr;
-	unsigned long n = num;
+	char number_sign = 0;
+	char *point;
+	unsigned long number = num;
 
 	static char *array;
 	static char buffer[50];
 
 	if (!(flags & BAS_CHANGE_UNSIG) && num < 0)
 	{
-		n = -num;
-		sign = '-';
+		number = -num;
+		number_sign = '-';
 	}
 	array = flags & BAS_CHANGE_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
-	ptr = &buffer[49];
-	*ptr = '\0';
+	point = &buffer[49];
+	*point = '\0';
 	do {
-		*--ptr = array[n % base];
-		n /= base;
-	} while (n != 0);
-	if (sign)
-		*--ptr = sign;
-	return (ptr);
+		*--point = array[number % base];
+		number /= base;
+	} while (number != 0);
+	if (number_sign)
+		*--point =number_sign;
+	return (point);
 }
 
 /**
@@ -81,12 +81,12 @@ char *change_base(long int num, int base, int flags)
 
 void handle_comments(char *buf)
 {
-	int i;
+	int index;
 
-	for (i = 0; buf[i] != '\0'; i++)
-		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
+	for (index = 0; buf[index] != '\0'; index++)
+		if (buf[index] == '#' && (!index || buf[index - 1] == ' '))
 		{
-			buf[i] = '\0';
+			buf[index] = '\0';
 			break;
 		}
 }

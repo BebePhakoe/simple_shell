@@ -7,14 +7,14 @@
  */
 size_t _listlen(const list_s *h)
 {
-	size_t i = 0;
+	size_t index = 0;
 
 	while (h)
 	{
 		h = h->next;
-		i++;
+		index++;
 	}
-	return (i);
+	return (index);
 }
 
 /**
@@ -27,30 +27,30 @@ size_t _listlen(const list_s *h)
 char **list_to_vector(list_s *head)
 {
 	list_s *node = head;
-	size_t i = _listlen(head), j;
+	size_t index = _listlen(head), k;
 	char **strs;
 	char *str;
 
-	if (!head || !i)
+	if (!head || !index)
 		return (NULL);
-	strs = malloc(sizeof(char *) * (i + 1));
+	strs = malloc(sizeof(char *) * (index + 1));
 
 	if (!strs)
 		return (NULL);
-	for (i = 0; node; node = node->next, i++)
+	for (index = 0; node; node = node->next, index++)
 	{
 		str = malloc(_strlen(node->str) + 1);
 		if (!str)
 		{
-			for (j = 0; j < i; j++)
-				free(strs[j]);
+			for (k = 0; k < index; k++)
+				free(strs[k]);
 			free(strs);
 			return (NULL);
 		}
 		str = _strcpy(str, node->str);
-		strs[i] = str;
+		strs[index] = str;
 	}
-	strs[i] = NULL;
+	strs[index] = NULL;
 	return (strs);
 }
 
@@ -63,7 +63,7 @@ char **list_to_vector(list_s *head)
 
 size_t print_list(const list_s *h)
 {
-	size_t i = 0;
+	size_t index = 0;
 
 	while (h)
 	{
@@ -73,9 +73,9 @@ size_t print_list(const list_s *h)
 		_puts(h->str ? h->str : "(nil)");
 		_puts("\n");
 		h = h->next;
-		i++;
+		index++;
 	}
-	return (i);
+	return (index);
 }
 
 /**
@@ -89,12 +89,12 @@ size_t print_list(const list_s *h)
 
 list_s *node_str_start(list_s *node, char *prefix, char c)
 {
-	char *p = NULL;
+	char *point = NULL;
 
 	while (node)
 	{
-		p = starts_with(node->str, prefix);
-		if (p && ((c == -1) || (*p == c)))
+		point = starts_with(node->str, prefix);
+		if (point && ((c == -1) || (*point == c)))
 			return (node);
 		node = node->next;
 	}
@@ -111,14 +111,14 @@ list_s *node_str_start(list_s *node, char *prefix, char c)
 
 ssize_t get_node_index(list_s *head, list_s *node)
 {
-	size_t i = 0;
+	size_t index = 0;
 
 	while (head)
 	{
 		if (head == node)
-			return (i);
+			return (index);
 		head = head->next;
-		i++;
+		index++;
 	}
 	return (-1);
 }

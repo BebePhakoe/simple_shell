@@ -6,12 +6,9 @@
  * Return: 1 if from_terminal mode else 0
  */
 
-int from_terminal(info_t *array)
-> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
+int from_terminal(info_q *array)
 {
-> > > > > > HEAD
 	return (isatty(STDIN_FILENO) && array->bt_read <= 2);
-> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 }
 
 /**
@@ -55,14 +52,14 @@ int handle_built(info_q *array)
 
 int _atoi(char *s)
 {
-	int i, sign = 1, flag = 0, output;
+	int index, number_sign = 1, flag = 0, output;
 	unsigned int result = 0;
 
-	for (i = 0; s[i] != '\0' && flag != 2; i++)
+	for (index = 0; s[index] != '\0' && flag != 2; index++)
 	{
-		if (s[i] == '-')
-			sign *= -1;
-		if (s[i] >= '0' && s[i] <= '9')
+		if (s[index] == '-')
+			number_sign *= -1;
+		if (s[index] >= '0' && s[index] <= '9')
 		{
 			flag = 1;
 			result *= 10;
@@ -71,7 +68,7 @@ int _atoi(char *s)
 		else if (flag == 1)
 			flag = 2;
 	}
-	if (sign == -1)
+	if (number_sign == -1)
 		output = -result;
 	else
 		output = result;
@@ -91,10 +88,10 @@ int _atoi(char *s)
 
 bool is_delimiter(char c, char *delimiters)
 {
-	int s;
+	int k;
 
-	for (s = 0; delimiters[s]; s++)
-		if (c == delimiters[s])
+	for (k = 0; delimiters[k]; k++)
+		if (c == delimiters[k])
 			return (true);
 	return (false);
 }

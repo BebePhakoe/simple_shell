@@ -40,6 +40,21 @@
 		0, 0, NULL, 0, 0, 0					\
 	}
 
+extern char **environ;
+
+/**
+ * struct ListNode - singly linked list
+ * @num: the number field
+ * @str: a string
+ * @next: points to the next node
+ */
+typedef struct ListNode
+{
+	int num;
+	char *str;
+	struct ListNode *next;
+} list_s;
+
 /**
  * struct InfoNode - A function pointer that contains simulated arguments
  * @arg: Generated from getline that holds arguments that returns a string
@@ -85,6 +100,18 @@ typedef struct InfoNode
 	int hist_lines;
 } info_q;
 
+/**
+ * struct builtin - contains a builtin string and related function
+ * @type: the builtin command flag
+ * @func: the function
+ */
+
+typedef struct builtin
+{
+	char *type;
+	int (*func)(info_q *);
+} builtin_commands;
+
 int shell_main(info_q *info, char **av);
 int from_terminal(info_q *info);
 void clear_info(info_q *info);
@@ -93,12 +120,9 @@ void free_info(info_q *info, int all);
 ssize_t input_buf(info_q *info, char **buf, size_t *len);
 void handle_sigint(__attribute__((unused)) int sig_num);
 int _getline(info_q *info, char **ptr, size_t *length);
-< < < < < < < HEAD
 ssize_t read_buf(info_q *info, char *buf, size_t *i);
-= = = = = = =
 ssize_t read_buf(info_q *info, char *buf, size_t *i);
 int handle_built(info_q *array);
-> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 char *read_hist(info_q *array);
 int create_history(info_q *array);
 int main_history(info_q *array);
@@ -117,26 +141,26 @@ list_s *node_str_start(list_s *, char *, char);
 size_t print_list_str(const list_s *);
 size_t _listlen(const list_s *);
 size_t print_list(const list_s *);
-ssize_t get_input(info_s *);
+ssize_t get_input(info_q *);
 int delete_node_at_index(list_s **, unsigned int);
-bool is_chain(info_s *, char *, size_t *);
-int change_alias(info_s *);
-int change_v(info_s *);
+bool is_chain(info_q *, char *, size_t *);
+int change_alias(info_q *);
+int change_v(info_q *);
 int change_string(char **, char *);
 int print_dec(int, int);
-int gather_env(info_s *);
+int gather_env(info_q *);
 void handle_comments(char *);
 void free_list(list_s **);
-void check_chain(info_s *info, char *buf, size_t *p, size_t i, size_t len);
-int handle_builtin(info_s *);
-bool is_executable(info_s *, char *);
+void check_chain(info_q *info, char *buf, size_t *p, size_t i, size_t len);
+int handle_builtin(info_q *);
+bool is_executable(info_q *, char *);
 int loophsh(char **);
 int bfree(void **);
 void free_vector(char **);
-void print_error(info_s *, char *);
-void check_command(info_s *);
-void create_process(info_s *);
-char **get_environ(info_s *);
+void print_error(info_q *, char *);
+void check_command(info_q *);
+void create_process(info_q *);
+char **get_environ(info_q *);
 char **strtow(char *, char *);
 char **list_to_vector(list_s *);
 void _puts(char *);
@@ -148,27 +172,29 @@ char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
 char *_memset(char *, char, unsigned int);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-char *_getenv(info_s *, const char *);
+char *_getenv(info_q *, const char *);
 char *starts_with(const char *, const char *);
 char *dup_chars(char *, int, int);
-char *check_file_in_path(info_s *info, char *pathstr, char *cmd);
+char *check_file_in_path(info_q *info, char *pathstr, char *cmd);
 char *change_base(long int, int, int);
-int _printenv(info_s *);
-int check_setenv(info_s *);
-int check_unsetenv(info_s *);
-int _unsetenv(info_s *, char *);
-int _setenv(info_s *, char *, char *);
-int handle_exit(info_s *);
-int handle_cd(info_s *);
-int handle_help(info_s *);
-int handle_history(info_s *);
-int handle_alias(info_s *);
+int _printenv(info_q *);
+int check_setenv(info_q *);
+int check_unsetenv(info_q *);
+int _unsetenv(info_q *, char *);
+int _setenv(info_q *, char *, char *);
+int handle_exit(info_q *);
+int handle_cd(info_q *);
+int handle_help(info_q *);
+int handle_history(info_q *);
+int handle_alias(info_q *);
 int _putchar(char);
 int _isalpha(int);
 int _atoi(char *);
-int write_char(char c, int fd);
-int write_chars(char *str, int fd);
+int write_char(char c, int bt);
+int write_chars(char *str, int bt);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
 int putchar_err(char);
+void puts_err(char *);
+int err_num(char *);
 #endif

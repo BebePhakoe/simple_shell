@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "btshell.h"
 
 /**
  * input_buf - The buffers commands
@@ -35,7 +35,7 @@ ssize_t input_buf(info_q *array, char **buf, size_t *len)
 			update_history(array, *buf, array->hist_lines++);
 			{
 				*len = r;
-				info->sep_buff = buf;
+				array->sep_buff = buf;
 			}
 		}
 	}
@@ -75,7 +75,7 @@ ssize_t get_input(info_q *array)
 		if (i >= len)
 		{
 			i = len = 0;
-			info->sep_buff_kind = REG_FLAG;
+			array->sep_buff_kind = REG_FLAG;
 		}
 		*buf_p = p;
 		return (_strlen(p)); /*function 3*/
@@ -160,5 +160,5 @@ void handle_sigint(__attribute__((unused)) int sig_num)
 {
 	_puts("\n");
 	_puts("$ "); /* function 1*/
-	_putchar(NEG_ONE);
+	_putchar(NEGATIVE_ONE);
 }

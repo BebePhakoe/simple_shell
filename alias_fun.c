@@ -9,18 +9,18 @@
  */
 int unset_alias(info_q *array, char *str)
 {
-	char *p, c;
-	int ret;
+	char *point, ch;
+	int return_value;
 
-	p = _strchr(str, '=');
-	if (!p)
+	point = _strchr(str, '=');
+	if (!point)
 		return (1);
-	c = *p;
-	*p = 0;
-	ret = delete_node_at_index(&(array->alias);
+	ch = *point;
+	*point = 0;
+	return_value = delete_node_at_index(&(array->alias);
 	get_node_index(array->alias, node_str_start(array->alias, str, -1)));
-	*p = c;
-	return (ret);
+	*point = ch;
+	return (return_value);
 }
 
 /**
@@ -32,12 +32,12 @@ int unset_alias(info_q *array, char *str)
  */
 int set_alias(info_q *array, char *str)
 {
-	char *p;
+	char *point;
 
-	p = _strchr(str, '=');
-	if (!p)
+	point = _strchr(str, '=');
+	if (!point)
 		return (1);
-	if (!*++p)
+	if (!*++point)
 		return (unset_alias(array, str));
 
 	unset_alias(array, str);
@@ -52,15 +52,15 @@ int set_alias(info_q *array, char *str)
  */
 int print_alias(list_s *node)
 {
-	char *p = NULL, *a = NULL;
+	char *point = NULL, *another = NULL;
 
 	if (node)
 	{
-		p = _strchr(node->str, '=');
-		for (a = node->str; a <= p; a++)
-			_putchar(*a);
+		point = _strchr(node->str, '=');
+		for (another = node->str; another <= point; another++)
+			_putchar(*another);
 		_putchar('\'');
-		_puts(p + 1);
+		_puts(point + 1);
 		_puts("'\n");
 		return (0);
 	}
@@ -75,7 +75,7 @@ int print_alias(list_s *node)
 int handle_alias(info_q *array)
 {
 	int i = 0;
-	char *p = NULL;
+	char *point = NULL;
 	list_s *node = NULL;
 
 	if (array->argc == 1)
@@ -90,8 +90,8 @@ int handle_alias(info_q *array)
 	}
 	for (i = 1; array->argv[i]; i++)
 	{
-		p = _strchr(array->argv[i], '=');
-		if (p)
+		point = _strchr(array->argv[i], '=');
+		if (point)
 			set_alias(array, array->argv[i]);
 		else
 			print_alias(node_str_start(array->alias, array->argv[i], '='));
@@ -108,23 +108,23 @@ int handle_alias(info_q *array)
  */
 int change_alias(info_q *array)
 {
-	int i;
+	int index;
 	list_s *node;
-	char *p;
+	char *point;
 
-	for (i = 0; i < 10; i++)
+	for (index = 0; index < 10; index++)
 	{
 		node = node_str_start(array->alias, array->argv[0], '=');
 		if (!node)
 			return (0);
 		free(array->argv[0]);
-		p = _strchr(node->str, '=');
-		if (!p)
+		point = _strchr(node->str, '=');
+		if (!point)
 			return (0);
-		p = _strdup(p + 1);
-		if (!p)
+		point = _strdup(point + 1);
+		if (!point)
 			return (0);
-		array->argv[0] = p;
+		array->argv[0] = point;
 	}
 
 	return (1);

@@ -7,7 +7,7 @@
  *
  * Return: 1 if chain delimeter else 0
  */
-bool is_chain(info_s *info, char *buf, size_t *p)
+bool is_chain(info_q *info, char *buf, size_t *p)
 {
 	size_t j = *p;
 
@@ -44,7 +44,7 @@ bool is_chain(info_s *info, char *buf, size_t *p)
  *
  * Return: Void
  */
-void check_chain(info_s *info, char *buf, size_t *p, size_t i, size_t len)
+void check_chain(info_q *info, char *buf, size_t *p, size_t i, size_t len)
 {
 	size_t j = *p;
 
@@ -73,7 +73,7 @@ void check_chain(info_s *info, char *buf, size_t *p, size_t i, size_t len)
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int change_v(info_s *info)
+int change_v(info_q *info)
 {
 	int i = 0;
 	list_s *node;
@@ -85,16 +85,13 @@ int change_v(info_s *info)
 		if (!_strcmp(info->argv[i], "$?"))
 		{
 			change_string(&(info->argv[i]),
-
-						   _strdup(change_base(info->status, 10, 0)));
-
+			_strdup(change_base(info->status, 10, 0)));
 			continue;
 		}
 		if (!_strcmp(info->argv[i], "$$"))
 		{
 			change_string(&(info->argv[i]),
-
-						   _strdup(change_base(getpid(), 10, 0)));
+			_strdup(change_base(getpid(), 10, 0)));
 
 			continue;
 		}
@@ -102,8 +99,7 @@ int change_v(info_s *info)
 		if (node)
 		{
 			change_string(&(info->argv[i]),
-
-						   _strdup(_strchr(node->str, '=') + 1));
+			_strdup(_strchr(node->str, '=') + 1));
 
 			continue;
 		}

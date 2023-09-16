@@ -9,11 +9,7 @@
 
 int main(int argc, char **argv)
 {
-< < < < < < < HEAD
 	info_q array[] = {INI_INFO};
-= = = = = = =
-	info_q array[] = {INI_INFO};
-> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 	int bt = 2;
 
 	asm("mov %1, %0\n\t"
@@ -61,9 +57,7 @@ int main(int argc, char **argv)
 
 int shell_main(info_q *array, char **av)
 {
-< < < < < < < HEAD
 	ssize_t read_result = 0;
-> > > > > > > d37278aab696289dd5b41bfe06e42d7829238c74
 	int builtin_return_value = 0;
 
 	while (read_result != -1 && builtin_return_value != -2)

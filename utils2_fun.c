@@ -32,11 +32,9 @@ int words_count(char *str, char *separators, unsigned int *arr)
 	char *str_copy = str;
 	bool start = false, delimiter;
 
-	/* If the string is empty */
 	if (!str)
 		return (0);
 
-	/* Shift string pointer to first non-delimiter character */
 	while (!start)
 		for (d = 0; separators[d]; d++)
 		{
@@ -46,7 +44,6 @@ int words_count(char *str, char *separators, unsigned int *arr)
 				start = true;
 		}
 
-	/* If the string has only one character */
 	if (!*(str_copy + 1))
 	{
 		arr[0] = 1;
@@ -55,17 +52,14 @@ int words_count(char *str, char *separators, unsigned int *arr)
 
 	for (c = 1; str_copy[c]; c++)
 	{
-		/* Compare each delimiter with the current character */
 		delimiter = is_delimiter(str_copy[c], separators);
 
-		/* If current char is a delimiter and previous char is not */
 		if (delimiter && !(is_delimiter(str_copy[c - 1], separators)))
 		{
 			arr[word_count] = word_len;
 			word_count++;
 		}
 
-		/* If we're at the end of the string and its not a delimiter */
 		if ((!str_copy[c + 1]) && !delimiter)
 		{
 			word_len++;

@@ -1,65 +1,27 @@
-#include "main.h"
+#include "btshell.h"
 
 /**
  * write_chars - prints an input string
- * @str: the string to be printed
- * @fd: the filedescriptor to write to
+ * @str: string to printed
+ * @bt: the filedescriptor
  *
  * Return: the number of chars put
  */
 int write_chars(char *str, int bt)
 {
-	int i = 0;
+	int index = 0;
 
 	if (!str)
 		return (0);
 	while (*str)
 	{
-		i += write_char(*str++, fd);
+		index += write_char(*str++, bt);
 	}
-	return (i);
+	return (index);
 }
 
 /**
- * print_dec - function prints a decimal (integer) number (base 10)
- * @input: the input
- * @fd: the filedescriptor to write to
- *
- * Return: number of characters printed
- */
-int print_dec(int input, int fd)
-{
-	int (*__putchar)(char) = _putchar;
-	int i, count = 0;
-	unsigned int _abs_, current;
-
-	if (fd == STDERR_FILENO)
-		__putchar = putchar_err;
-	if (input < 0)
-	{
-		_abs_ = -input;
-		__putchar('-');
-		count++;
-	}
-	else
-		_abs_ = input;
-	current = _abs_;
-	for (i = 1000000000; i > 1; i /= 10)
-	{
-
-		if (_abs_ / i)
-		{
-			__putchar('0' + current / i);
-			count++;
-		}
-		current %= i;
-	}
-	__putchar('0' + current);
-	count++;
-	return (count);
-}
-/**
- * change_base - converter function, a clone of itoa
+ * change_base - a clone of itoa function
  * @num: number
  * @base: base
  * @flags: argument flags
@@ -68,28 +30,28 @@ int print_dec(int input, int fd)
  */
 char *change_base(long int num, int base, int flags)
 {
-	char sign = 0;
-	char *ptr;
-	unsigned long n = num;
+	char number_sign = 0;
+	char *point;
+	unsigned long number = num;
 
 	static char *array;
 	static char buffer[50];
 
 	if (!(flags & BAS_CHANGE_UNSIG) && num < 0)
 	{
-		n = -num;
-		sign = '-';
+		number = -num;
+		number_sign = '-';
 	}
 	array = flags & BAS_CHANGE_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
-	ptr = &buffer[49];
-	*ptr = '\0';
+	point = &buffer[49];
+	*point = '\0';
 	do {
-		*--ptr = array[n % base];
-		n /= base;
-	} while (n != 0);
-	if (sign)
-		*--ptr = sign;
-	return (ptr);
+		*--point = array[number % base];
+		number /= base;
+	} while (number != 0);
+	if (number_sign)
+		*--point = number_sign;
+	return (point);
 }
 
 /**
@@ -101,12 +63,12 @@ char *change_base(long int num, int base, int flags)
 
 void handle_comments(char *buf)
 {
-	int i;
+	int k;
 
-	for (i = 0; buf[i] != '\0'; i++)
-		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
+	for (k = 0; buf[k] != '\0'; k++)
+		if (buf[k] == '#' && (!k || buf[k - 1] == ' '))
 		{
-			buf[i] = '\0';
+			buf[k] = '\0';
 			break;
 		}
 }

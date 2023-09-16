@@ -1,24 +1,24 @@
 #include "btshell.h"
 
 /**
- * _strcpy - copies a string
- * @dest: the destination
- * @src: the source
+ * _strcpy - copies a character of strings
+ * @dest: destination
+ * @src: source
  *
- * Return: pointer to destination
+ * Return: destination
  */
 char *_strcpy(char *dest, char *src)
 {
-	int i = 0;
+	int index = 0;
 
 	if (dest == src || src == 0)
 		return (dest);
-	while (src[i])
+	while (src[index])
 	{
-		dest[i] = src[i];
-		i++;
+		dest[index] = src[index];
+		index++;
 	}
-	dest[i] = 0;
+	dest[index] = 0;
 	return (dest);
 }
 
@@ -30,19 +30,19 @@ char *_strcpy(char *dest, char *src)
  */
 char *_strdup(const char *str)
 {
-	int length = 0;
-	char *ret;
+	int len = 0;
+	char *return_value;
 
 	if (str == NULL)
 		return (NULL);
 	while (*str++)
-		length++;
-	ret = malloc(sizeof(char) * (length + 1));
-	if (!ret)
+		len++;
+	return_value = malloc(sizeof(char) * (len + 1));
+	if (!return_value)
 		return (NULL);
-	for (length++; length--;)
-		ret[length] = *--str;
-	return (ret);
+	for (len++; len--;)
+		return_value[len] = *--str;
+	return (return_value);
 }
 
 /**
@@ -54,14 +54,14 @@ char *_strdup(const char *str)
 
 void _puts(char *str)
 {
-	int i = 0;
+	int index = 0;
 
 	if (!str)
 		return;
-	while (str[i] != '\0')
+	while (str[index] != '\0')
 	{
-		_putchar(str[i]);
-		i++;
+		_putchar(str[index]);
+		index++;
 	}
 }
 
@@ -74,15 +74,15 @@ void _puts(char *str)
  */
 int _putchar(char c)
 {
-	static int i;
-	static char buf[BUFFER_SIZE_WRITE];
+	static int index;
+	static char buffer[BUFFER_SIZE_WRITE];
 
-	if (c == NEG_ONE || i >= BUFFER_SIZE_WRITE)
+	if (c == NEGATIVE_ONE || index >= BUFFER_SIZE_WRITE)
 	{
-		write(1, buf, i);
+		write(1, buffer, index);
 		i = 0;
 	}
-	if (c != NEG_ONE)
-		buf[i++] = c;
+	if (c != NEGATIVE_ONE)
+		buffer[index++] = c;
 	return (1);
 }
