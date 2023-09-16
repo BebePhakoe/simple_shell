@@ -1,9 +1,9 @@
 #include "btshell.h"
 /**
- * _memset - fills memory with a constant byte
- * @s: the pointer to the memory area
- * @b: the byte to fill *s with
- * @n: the amount of bytes to be filled
+ * _memset - Fills memory with a constant byte
+ * @s: Pointer to the memory area
+ * @b: Byte to fill *s with
+ * @n: Amount of bytes
  * Return: s- a pointer to the memory area of s
  */
 char *_memset(char *s, char b, unsigned int n)
@@ -16,7 +16,7 @@ char *_memset(char *s, char b, unsigned int n)
 }
 
 /**
- * free_vector - frees memory allocated to a 2D character array
+ * free_vector -Frees memory allocated to a 2D character array
  * @vec: Vector to be freed.
  *
  * Return: Nothing.
@@ -35,12 +35,12 @@ void free_vector(char **vec)
 }
 
 /**
- * _realloc - reallocates a block of memory
- * @ptr: pointer to previous memory allocated block
- * @old_size: byte size of previous block
- * @new_size: byte size of new block
+ * _realloc - Reallocates a block of memory
+ * @ptr: Pointer to previous memory
+ * @old_size: Byte size of previous block
+ * @new_size: Byte size of new block
  *
- * Return: pointer of old block.
+ * Return: Pointer of old block.
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
@@ -65,8 +65,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 #include "shell.h"
 
 /**
- * bfree - frees a pointer and NULLs the address
- * @ptr: address of the pointer to free
+ * bfree - Frees a pointer and NULLs the address
+ * @ptr: Address of pointer
  *
  * Return: 1 if freed, otherwise 0.
  */

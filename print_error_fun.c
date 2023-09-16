@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
- * err_num - converts a string to an integer
- * @s: the string to be converted
+ * err_num - Converts string to integer
+ * @s: String to convert
  * Return: 0 if no numbers in string,
  * converted integer else -1
  *
@@ -28,26 +28,26 @@ int err_num(char *s)
 	return (result);
 }
 /**
- * print_error - prints an error message
- * @info: the parameter & return info struct
- * @estr: string containing specified error type
+ * print_error - Prints an error message
+ * @array: Parameter struct
+ * @estr: String containing specified error types
  * Return: 0 if no numbers in string,
  * converted integer else -1
  */
-void print_error(info_s *info, char *estr)
+void print_error(info_q *array, char *estr)
 {
-	puts_err(info->prog_name);
+	puts_err(array->prog_name);
 	puts_err(": ");
-	print_dec(info->lines, STDERR_FILENO);
+	print_dec(array->lines, STDERR_FILENO);
 	puts_err(": ");
-	puts_err(info->argv[0]);
+	puts_err(array->argv[0]);
 	puts_err(": ");
 	puts_err(estr);
 }
 
 /**
- * puts_err - prints an input string
- * @str: the string to be printed
+ * puts_err - Prints an input string
+ * @str: String to  print
  *
  * Return: Nothing
  */
@@ -64,7 +64,7 @@ void puts_err(char *str)
 	}
 }
 /**
- * putchar_err - writes the character c to stderr
+ * putchar_err - Writes the character c to stderr
  * @c: The character to print
  *
  * Return: On success 1.
@@ -85,21 +85,21 @@ int putchar_err(char c)
 	return (1);
 }
 /**
- * write_char - writes the character c to given fd
+ * write_char - Writes the character c to given bt
  * @c: The character to print
- * @fd: The filedescriptor to write to
+ * @bt: Filedescriptor
  *
  * Return: On success 1.
  * On failure, -1 is returned
  */
-int write_char(char c, int fd)
+int write_char(char c, int bt)
 {
 	static int i;
 	static char buf[BUFFER_SIZE_WRITE];
 
 	if (c == NEG_ONE || i >= BUFFER_SIZE_WRITE)
 	{
-		write(fd, buf, i);
+		write(bt, buf, i);
 		i = 0;
 	}
 	if (c != NEG_ONE)

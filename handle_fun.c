@@ -1,19 +1,19 @@
 #include "btshell.h"
 
 /**
- * print_dec - function prints a decimal (integer) number (base 10)
- * @input: the input
- * @fd: the filedescriptor to write to
+ * print_dec - Function that prints a decimal
+ * @input: Input
+ * @bt: Filedescriptor
  *
- * Return: number of characters printed
+ * Return: Number of characters printed
  */
-int print_dec(int input, int fd)
+int print_dec(int input, int bt)
 {
 	int (*__putchar)(char) = _putchar;
 	int i, count = 0;
 	unsigned int _abs_, current;
 
-	if (fd == STDERR_FILENO)
+	if (bt == STDERR_FILENO)
 		__putchar = putchar_err;
 	if (input < 0)
 	{
@@ -39,12 +39,12 @@ int print_dec(int input, int fd)
 	return (count);
 }
 /**
- * change_base - converter function, a clone of itoa
- * @num: number
- * @base: base
+ * change_base - Converter function
+ * @num: Number
+ * @base: Base
  * @flags: argument flags
  *
- * Return: string
+ * Return: String
  */
 char *change_base(long int num, int base, int flags)
 {
@@ -73,8 +73,8 @@ char *change_base(long int num, int base, int flags)
 }
 
 /**
- * handle_comments - function replaces first instance of '#' with '\0'
- * @buf: address of the string to modify
+ * handle_comments - Function replaces first instance of '#' with '\0'
+ * @buf: Address of the string
  *
  * Return: 0;
  */

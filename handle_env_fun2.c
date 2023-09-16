@@ -1,17 +1,17 @@
 #include "btshell.h"
 
 /**
- * _getenv - gets the value of an environ variable
- * @info: contains simulated arguments for a function pointer,
+ * _getenv - Responsible for getting environ value
+ * @array: Function pointer,
  * @name: env var name
  *
- * Return: the value
+ * Return: Value
  */
 
-char *_getenv(info_s *info, const char *name)
+char *_getenv(info_q *array, const char *name)
 {
 	char *p;
-	list_s *node = info->env;
+	list_s *node = array->env;
 
 	while (node)
 	{
@@ -25,71 +25,67 @@ char *_getenv(info_s *info, const char *name)
 
 /**
  * check_setenv - Checks if an environment variable has been set.
- * @info: contains simulated arguments for a function pointer,
- * allowing for a consistent function prototype
+ * @array: Function pointer, allowing for a consistent function prototype
  *
  * Return: 0 if set, else 1.
  */
 
-int check_setenv(info_s *info)
+int check_setenv(info_q *array)
 {
-	if (info->argc != 3)
+	if (array->argc != 3)
 	{
 		puts_err("Incorrect number of arguements\n");
 		return (1);
 	}
 
-	if (_setenv(info, info->argv[1], info->argv[2]))
+	if (_setenv(array, array->argv[1], array->argv[2]))
 		return (0);
 	return (1);
 }
 
 /**
- * check_unsetenv - Remove an environment variable
- * @info: contains simulated arguments for a function pointer,
- * allowing for a consistent function prototype
+ * check_unsetenv - Removes an environment variable
+ * @array: Function pointer, allowing for a consistent function prototype
  * Return: Always 0
  */
-int check_unsetenv(info_s *info)
+int check_unsetenv(info_q *array)
 {
 	int i;
 
-	if (info->argc == 1)
+	if (array->argc == 1)
 	{
 		puts_err("Too few arguements.\n");
 		return (1);
 	}
-	for (i = 1; i <= info->argc; i++)
-		_unsetenv(info, info->argv[i]);
+	for (i = 1; i <= array->argc; i++)
+		_unsetenv(array, array->argv[i]);
 
 	return (0);
 }
 
 /**
- * gather_env - populates env linked list
- * @info: contains simulated arguments for a function pointer,
- * allowing for a consistent function prototype
+ * gather_env - Responsible populating env linked list
+ * @array: Function pointer, allowing for a consistent function prototype
  * Return: Always 0
  */
-int gather_env(info_s *info)
+int gather_env(info_q *array)
 {
 	list_s *node = NULL;
 	size_t i;
 
 	for (i = 0; environ[i]; i++)
 		add_node_end(&node, environ[i], 0);
-	info->env = node;
+	array->env = node;
 	return (0);
 }
 
 /**
- * _printenv - prints the current environment
- * @info: contains simulated arguments for a function pointer,
- * allowing for a consistent function prototype
+ * _printenv - Prints the current environment
+ * @array: Function pointer, allowing for a consistent function prototype
  * Return: Always 0
  */
-int _printenv(info_s *info)
+int _printenv(info_q *array)
 {
-	print_list_str(info->env);
+	print_list_str(array->env);
 	return (0);
 }

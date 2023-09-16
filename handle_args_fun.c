@@ -1,17 +1,18 @@
 #include "btshell.h"
 
 /**
- * is_executable - determines if a file is an executable command
- * @info: the info struct
- * @path: path to the file
+ * is_executable - Responsible for  determining
+ *  if a file can be executed
+ * @array: Struct
+ * @path: Path to file
  *
  * Return: 1 if true, 0 otherwise
  */
-bool is_executable(info_s *info, char *path)
+bool is_executable(info_q *array, char *path)
 {
 	struct stat st;
 
-	(void)info;
+	(void)array;
 	if (!path || stat(path, &st))
 		return (0);
 
@@ -23,12 +24,12 @@ bool is_executable(info_s *info, char *path)
 }
 
 /**
- * dup_chars - duplicates characters
- * @pathstr: the PATH string
- * @start: starting index
- * @stop: stopping index
+ * dup_chars - Responsible for duplicating characters
+ * @pathstr: Path string
+ * @start: Starting index
+ * @stop: Stopping index
  *
- * Return: pointer to new buffer
+ * Return: Pointer
  */
 char *dup_chars(char *pathstr, int start, int stop)
 {
@@ -44,13 +45,13 @@ char *dup_chars(char *pathstr, int start, int stop)
 
 /**
  * check_file_in_path - finds this cmd in the PATH string
- * @info: the info struct
- * @pathstr: the PATH string
- * @cmd: the cmd to find
+ * @array: Struct
+ * @pathstr: Path string
+ * @cmd: cmd to find
  *
- * Return: full path of cmd if found or NULL
+ * Return: Full path of cmd if found or NULL
  */
-char *check_file_in_path(info_s *info, char *pathstr, char *cmd)
+char *check_file_in_path(info_q *array, char *pathstr, char *cmd)
 {
 	int i = 0, curr_pos = 0;
 	char *path;
@@ -59,7 +60,7 @@ char *check_file_in_path(info_s *info, char *pathstr, char *cmd)
 		return (NULL);
 	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
-		if (is_executable(info, cmd))
+		if (is_executable(array, cmd))
 			return (cmd);
 	}
 	while (1)
@@ -74,7 +75,7 @@ char *check_file_in_path(info_s *info, char *pathstr, char *cmd)
 				_strcat(path, "/");
 				_strcat(path, cmd);
 			}
-			if (is_executable(info, path))
+			if (is_executable(array, path))
 				return (path);
 			if (!pathstr[i])
 				break;

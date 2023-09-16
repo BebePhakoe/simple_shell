@@ -1,15 +1,13 @@
 #include "btshell.h"
 
 /**
- * split_string - splits a string into words specified by a delimiter(s),
- *				  storing the pointer to each word (null-terminated)
- *				  in an array.
- * @str: String to be split.
- * @separators: One or more delimiters by which to split the string.
+ * split_string - Splits a string into words specified by a delimiter(s)
+ * by storing pointer to each word in an array.
+ * @str: String
+ * @separators: Delimiter(s) to split the string.
  * @word_count: Number of words in the string (separated by the delimiters).
  *
- * Return: Vector of pointers to strings (words).
- *		   Remember to free vector after use.
+ * Return: Vector of words
  */
 
 char **split_string(char *str, char *separators, size_t *word_count)
@@ -25,15 +23,12 @@ char **split_string(char *str, char *separators, size_t *word_count)
 	if (no_of_words == 0)
 		return (NULL);
 
-	/* Allocate space for the vector */
 	words = malloc((sizeof(char *) * no_of_words) + 1);
 	if (!words)
 		return (NULL);
 
-	/* Allocate space for each word in the vector, then copy the word */
 	for (v = 0; v < no_of_words; v++)
 	{
-		/* Allocate for current word */
 		words[v] = malloc((sizeof(char) * word_sizes[v]) + 1);
 		if (!words[v])
 		{
@@ -43,7 +38,6 @@ char **split_string(char *str, char *separators, size_t *word_count)
 			return (NULL);
 		}
 
-		/* Copy each character of current word to allocated space */
 		for (c = 0; c < word_sizes[v]; c++, str_ptr++)
 		{
 			while (is_delimiter(*str_ptr, separators))
@@ -51,24 +45,19 @@ char **split_string(char *str, char *separators, size_t *word_count)
 
 			words[v][c] = *str_ptr;
 		};
-
-		/* Add the null byte at the end of the word */
 		words[v][c] = '\0';
 	}
-
-	/* Store number of words so it can be used to free vector */
 	*word_count = no_of_words;
 
-	/* Vector should be null terminated */
 	words[v] = NULL;
 
 	return (words);
 }
 
 /**
- * **strtow - splits a string into words. Repeat delimiters are ignored
- * @str: the input string
- * @d: the delimeter string
+ * **strtow - Splits a string into words. Delimiters are ignored
+ * @str: Input string
+ * @d: Delimeter string
  * Return: a pointer to an array of strings, or NULL on failure
  */
 char **strtow(char *str, char *d)

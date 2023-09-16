@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * set_zeros - sets all the bytes of an integer array to 0
+ * set_zeros - Sets the bytes of an integer array to 0
  * @arr: Array to be initialized.
  * @size: Size of the array.
  *
@@ -17,7 +17,7 @@ void set_zeros(unsigned int *arr, size_t size)
 }
 
 /**
- * set_nulls - sets all the characters in a char array to nulls
+ * set_nulls - Sets all the characters in a char array to nulls
  * @arr: Array to be initialized.
  * @size: Size of the array.
  *

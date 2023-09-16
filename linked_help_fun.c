@@ -1,7 +1,7 @@
 #include "btshell.h"
 /**
- * _listlen - gets the length of linked list
- * @h: Pointer to first node.
+ * _listlen - Gets the length of the list
+ * @h: Pointer
  *
  * Return: Size of list.
  */
@@ -19,7 +19,7 @@ size_t _listlen(const list_s *h)
 
 /**
  * list_to_vector - returns an array of strings of the list->str
- * @head: pointer to first node
+ * @head: Pointer
  *
  * Return: Array of strings.
  */
@@ -55,8 +55,8 @@ char **list_to_vector(list_s *head)
 }
 
 /**
- * print_list - prints all elements of a list_s linked list
- * @h: pointer to first node
+ * print_list - Prints all elements of a list_s linked list
+ * @h: Pointer
  *
  * Return: Size of list
  */
@@ -79,9 +79,9 @@ size_t print_list(const list_s *h)
 }
 
 /**
- * node_str_start - returns node whose string starts with prefix
- * @node: pointer to list head
- * @prefix: string to check
+ * node_str_start - Returns node whose string starts with prefix
+ * @node: Pointer
+ * @prefix: String to check
  * @c: the next character after prefix to check
  *
  * Return: match node or null
@@ -102,9 +102,9 @@ list_s *node_str_start(list_s *node, char *prefix, char c)
 }
 
 /**
- * get_node_index - gets the index of a node
- * @head: pointer to list head
- * @node: pointer to the node
+ * get_node_index - Gets index of node
+ * @head: Pointer to list head
+ * @node: Pointer to the node
  *
  * Return: -1 or index of node
  */

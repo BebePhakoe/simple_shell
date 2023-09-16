@@ -1,13 +1,13 @@
 #include "btshell.h"
 
 /**
- * unset_alias - sets alias to string
- * @info: parameter struct
- * @str: the string alias
+ * unset_alias - Responsible for setting the alias to string
+ * @array: Parameter struct
+ * @str: String
  *
  * Return: Always 0 on success, 1 on error
  */
-int unset_alias(info_s *info, char *str)
+int unset_alias(info_q *array, char *str)
 {
 	char *p, c;
 	int ret;
@@ -17,20 +17,20 @@ int unset_alias(info_s *info, char *str)
 		return (1);
 	c = *p;
 	*p = 0;
-	ret = delete_node_at_index(&(info->alias);
-	get_node_index(info->alias, node_str_start(info->alias, str, -1)));
+	ret = delete_node_at_index(&(array->alias);
+	get_node_index(array->alias, node_str_start(array->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
 
 /**
- * set_alias - sets alias to string
- * @info: parameter struct
- * @str: the string alias
+ * set_alias - Responsible for setting the alias to string
+ * @array: Parameter struct
+ * @str: String
  *
  * Return: Always 0 on success, 1 on error
  */
-int set_alias(info_s *info, char *str)
+int set_alias(info_q *array, char *str)
 {
 	char *p;
 
@@ -38,15 +38,15 @@ int set_alias(info_s *info, char *str)
 	if (!p)
 		return (1);
 	if (!*++p)
-		return (unset_alias(info, str));
+		return (unset_alias(array, str));
 
-	unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, 0) == NULL);
+	unset_alias(array, str);
+	return (add_node_end(&(array->alias), str, 0) == NULL);
 }
 
 /**
- * print_alias - prints an alias string
- * @node: the alias node
+ * print_alias - Responsible for printing an alias string
+ * @node: The alias node
  *
  * Return: Always 0 on success, 1 on error
  */
@@ -68,20 +68,19 @@ int print_alias(list_s *node)
 }
 
 /**
- * handle_alias - mimics the alias builtin (man alias)
- * @info: contains simulated arguments for a function pointer,
- * allowing for a consistent function prototype
- *	Return: Always 0
+ * handle_alias - Responsible for mimicing the alias builtin (man alias)
+ * @array: Function pointer, allowing for a consistent function prototype
+ * Return: Always 0
  */
-int handle_alias(info_s *info)
+int handle_alias(info_q *array)
 {
 	int i = 0;
 	char *p = NULL;
 	list_s *node = NULL;
 
-	if (info->argc == 1)
+	if (array->argc == 1)
 	{
-		node = info->alias;
+		node = array->alias;
 		while (node)
 		{
 			print_alias(node);
@@ -89,24 +88,25 @@ int handle_alias(info_s *info)
 		}
 		return (0);
 	}
-	for (i = 1; info->argv[i]; i++)
+	for (i = 1; array->argv[i]; i++)
 	{
-		p = _strchr(info->argv[i], '=');
+		p = _strchr(array->argv[i], '=');
 		if (p)
-			set_alias(info, info->argv[i]);
+			set_alias(array, array->argv[i]);
 		else
-			print_alias(node_str_start(info->alias, info->argv[i], '='));
+			print_alias(node_str_start(array->alias, array->argv[i], '='));
 	}
 	return (0);
 }
 
 /**
- * change_alias - replaces an aliases in the tokenized string
- * @info: the parameter struct
+ * change_alias - Responsible for replacing
+ * an aliases in the tokenized string
+ * @array: Parameter struct
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int change_alias(info_s *info)
+int change_alias(info_q *array)
 {
 	int i;
 	list_s *node;
@@ -114,17 +114,17 @@ int change_alias(info_s *info)
 
 	for (i = 0; i < 10; i++)
 	{
-		node = node_str_start(info->alias, info->argv[0], '=');
+		node = node_str_start(array->alias, array->argv[0], '=');
 		if (!node)
 			return (0);
-		free(info->argv[0]);
+		free(array->argv[0]);
 		p = _strchr(node->str, '=');
 		if (!p)
 			return (0);
 		p = _strdup(p + 1);
 		if (!p)
 			return (0);
-		info->argv[0] = p;
+		array->argv[0] = p;
 	}
 
 	return (1);
